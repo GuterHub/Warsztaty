@@ -11,7 +11,7 @@ def fake_book(locale="en_US"):
          "Komunikat", "Leczenie", "Psychoterapia", "Rozrywka", "Ból",
          "Dziewczyny", "Chłopaki", "Druhny", "Rodzice", "Dzieci", "Dziadkowie",
          "Narzeczone", "Żony", "Szaleńcy", "Prześladowcy", "Smutek", "Zabawki",
-         "Samotność"]
+         "Samotność", "Krew"]
 
     t2 = ["Afrodyty", "Da Vinci", "ucznia", "Newtona", "Einsteina", "rycerza",
           "wojownika", "lęku", "sportowców", "komputerów", "nauki",
