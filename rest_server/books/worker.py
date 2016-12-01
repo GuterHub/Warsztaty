@@ -1,28 +1,6 @@
-from django.db import models
-
-GENRES = (
-    (1, "Romans"),
-    (2, "Obyczajowa"),
-    (3, "Sci-fi i fantasy"),
-    (4, "Literatura faktu"),
-    (5, "Popularnonaukowa"),
-    (6, "Poradnik"),
-    (7, "Kryminał, sensacja")
-)
-
-
-# Create your models here.
-
-class Book(models.Model):
-    author = models.CharField(max_length=200)
-    title = models.CharField(max_length=200)
-    isbn = models.CharField(max_length=17)
-    publisher = models.CharField(max_length=200)
-    genre = models.IntegerField(choices=GENRES)
-
-    def __str__(self):
-        return '{} "{}"'.format(self.author, self.title)
-
+from faker import Factory
+from random import choice
+from .models import Book, GENRES
 
 def fake_book(locale="en_US"):
     fake = Factory.create(locale)
@@ -32,15 +10,20 @@ def fake_book(locale="en_US"):
          "Porwanie", "Poszukiwania", "Zabawa", "Programy", "Pieniądze",
          "Komunikat", "Leczenie", "Psychoterapia", "Rozrywka", "Ból",
          "Dziewczyny", "Chłopaki", "Druhny", "Rodzice", "Dzieci", "Dziadkowie",
-         "Narzeczone", "Żony"]
-    t2 = ["Afrodyty", "Da Vinci", "szaleńca", "Newtona", "Einsteina", "rycerza",
+         "Narzeczone", "Żony", "Szaleńcy", "Prześladowcy", "Smutek", "Zabawki",
+         "Samotność"]
+
+    t2 = ["Afrodyty", "Da Vinci", "ucznia", "Newtona", "Einsteina", "rycerza",
           "wojownika", "lęku", "sportowców", "komputerów", "nauki",
-          "czarownic", "kierowców", "żołnierzy", "przyrody", "profesjonalistów",
-          "naukowców", "zwierząt", "w Kosmosie", "na bogato", "w Polsce", 
+          "czarownic", "kierowców", "żołnierzy", "przyrody", 
+          "dla profesjonalistów","naukowców", "zwierząt", "w Kosmosie", 
+          "na bogato", "w Polsce", "w Azji", "w Afryce", "w Europie", "w Ameryce", 
           "we współczesnym świecie", "w górach", "nad morzem", "na rynku", 
           "w polityce", "Polaków", "Europy", "na wojnie", "dla każdego", 
-          "w weekend", "istnienia", "lekarzy", "królów", "prezydentów",
-          "zapomnianych", "Złego", "bogów"]
+          "w weekend", "w twoim domu", "lekarzy", "królów", "prezydentów",
+          "zapomnianych", "Złego", "bogów", "szpiega", "w deszczu",
+          "tyrana", "milionerów", "w wielkim mieście", "dla dzieci", 
+          "w ciemności"]
 
     isbn = fake.ean13()
     author = "{} {}".format(fake.first_name(), fake.last_name())
@@ -53,4 +36,14 @@ def fake_book(locale="en_US"):
         isbn[4:8], isbn[8:12], isbn[12])
     b.publisher = publisher
     b.genre = genre
+    print(b)
     b.save()
+
+def populate_db():
+    locales = ["pl-PL", "en-US", "es-ES", "de-DE", "cs-CZ", "fr-FR", "it-IT",
+               "hr-HR", "nl-NL", "dk-DK", "fi-FI", "lt-LT", "pt-PT", "no-NO",
+               "sv-SE", "tr-TR"]
+    for i in range(0, 100):
+        loc = choice(locales)
+        fake_book(loc)
+
