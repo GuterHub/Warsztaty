@@ -81,14 +81,7 @@ WSGI_APPLICATION = 'rest_server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': '127.0.0.1',
-        'NAME': 'rest_server',
-        'ENGINE': 'mysql.connector.django',
-        'USER': 'root',
-        'PASSWORD': 'coderslab',
-        'OPTIONS': {
-                    'autocommit': True,
-        },
+       # skonfigurujcie bazę danych samodzielnie.
     }
 }
 
